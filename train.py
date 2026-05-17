@@ -64,9 +64,9 @@ def main():
 
     for epoch in range(start_epoch, N_EPOCHS + 1):
         epoch_loss = 0.0
-        for step, (x0, _) in enumerate(loader):
-            x0 = x0.to(device)
-            loss = diffusion.loss(model, x0)
+        for imgs, _ in loader:
+            imgs = imgs.to(device)  # imgs is x0 in the diffusion math, i.e. the clean image
+            loss = diffusion.loss(model, imgs)
 
             opt.zero_grad()
             loss.backward()

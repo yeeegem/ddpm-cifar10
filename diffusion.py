@@ -16,6 +16,7 @@ class Diffusion:
         self.alpha_bars = alpha_bars
 
     def q_sample(self, x0, t, eps=None):
+        # x0: clean image, x_t: noisy version at timestep t
         """Forward process: x_t = sqrt(a_bar_t)*x0 + sqrt(1-a_bar_t)*eps."""
         if eps is None:
             eps = torch.randn_like(x0)
