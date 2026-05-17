@@ -1,0 +1,13 @@
+name: ddpm-cifar10
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12
+  - pytorch>=2.1
+  - torchvision
+  - pytorch-cuda=13.0
+  - matplotlib>=3.8
+  - pip
