@@ -33,7 +33,20 @@ To resume after interruption:
 python train.py --resume checkpoints/ckpt_epoch0050.pt
 ```
 
-Checkpoints are saved to `checkpoints/` every 5 epochs. Training for 500 epochs on a single GPU takes roughly 6 hours. The script uses exponential moving average (EMA) of the model weights, which consistently produces sharper samples than the raw weights.
+Checkpoints are saved to `checkpoints/` every 5 epochs. Training for 500 epochs on an Nvidia RTX A5000 takes roughly 10 hours. The script uses exponential moving average (EMA) of the model weights, which consistently produces sharper samples than the raw weights.
+
+Hyperparameters used:
+
+| Parameter | Value |
+|---|---|
+| Diffusion timesteps T | 1000 |
+| Noise schedule | Linear, beta from 1e-4 to 0.02 |
+| Epochs | 500 |
+| Batch size | 128 |
+| Learning rate | 2e-4 (Adam) |
+| EMA decay | 0.9999 |
+| UNet base channels | 64, multipliers [1, 2, 4, 4] |
+| Model parameters | ~14M |
 
 ## Sampling
 
@@ -48,6 +61,10 @@ This writes `samples.png` (a grid of 64 generated images), `comparison.png` (rea
 After 500 epochs:
 
 ![samples](samples.png)
+
+Real CIFAR-10 vs generated:
+
+![comparison](comparison.png)
 
 Training loss over 500 epochs:
 
