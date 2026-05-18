@@ -1,5 +1,11 @@
 # DDPM on CIFAR-10
 
+![PyTorch](https://img.shields.io/badge/PyTorch-2.x-EE4C2C?logo=pytorch&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Dataset](https://img.shields.io/badge/Dataset-CIFAR--10-blue)
+![Diffusion](https://img.shields.io/badge/Diffusion-DDPM-purple)
+
 A from-scratch implementation of Denoising Diffusion Probabilistic Models trained on CIFAR-10.
 
 ![denoising](denoising.gif)
