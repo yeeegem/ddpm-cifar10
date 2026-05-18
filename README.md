@@ -33,7 +33,7 @@ To resume after interruption:
 python train.py --resume checkpoints/ckpt_epoch0050.pt
 ```
 
-Checkpoints are saved to `checkpoints/` every 50 epochs. Training for 500 epochs on a single GPU takes roughly 6 hours. The script uses exponential moving average (EMA) of the model weights, which consistently produces sharper samples than the raw weights.
+Checkpoints are saved to `checkpoints/` every 5 epochs. Training for 500 epochs on a single GPU takes roughly 6 hours. The script uses exponential moving average (EMA) of the model weights, which consistently produces sharper samples than the raw weights.
 
 ## Sampling
 
@@ -41,13 +41,17 @@ Checkpoints are saved to `checkpoints/` every 50 epochs. Training for 500 epochs
 python sample.py --checkpoint checkpoints/ckpt_epoch0500.pt
 ```
 
-This writes `samples.png` (a grid of 64 generated images) and `denoising.gif` (the reverse process for a single sample).
+This writes `samples.png` (a grid of 64 generated images), `comparison.png` (real CIFAR-10 vs generated side by side), and `denoising.gif` (the reverse process for a single sample). Pass `--gif_seed N` to get a different sample in the GIF.
 
 ## Results
 
-After full training:
+After 500 epochs:
 
 ![samples](samples.png)
+
+Training loss over 500 epochs:
+
+![loss curve](loss.png)
 
 ## Files
 

@@ -2,6 +2,8 @@ import argparse
 import copy
 import os
 import time
+import matplotlib
+matplotlib.use("Agg")  # no display needed, avoids tkinter thread crashes
 import matplotlib.pyplot as plt
 import torch
 import torch.optim as optim
