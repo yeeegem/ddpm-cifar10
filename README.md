@@ -8,7 +8,7 @@
 
 A from-scratch implementation of Denoising Diffusion Probabilistic Models trained on CIFAR-10.
 
-![denoising](denoising.gif)
+![denoising](assets/denoising.gif)
 
 ---
 
@@ -66,15 +66,15 @@ This writes `samples.png` (a grid of 64 generated images), `comparison.png` (rea
 
 After 500 epochs:
 
-![samples](samples.png)
+![samples](assets/samples.png)
 
 Real CIFAR-10 vs generated:
 
-![comparison](comparison.png)
+![comparison](assets/comparison.png)
 
 Training loss over 500 epochs:
 
-![loss curve](loss.png)
+![loss curve](assets/loss.png)
 
 ## Files
 
