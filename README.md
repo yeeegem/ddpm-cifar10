@@ -14,11 +14,11 @@ A from-scratch implementation of Denoising Diffusion Probabilistic Models traine
 
 ## How it works
 
-Score matching asks a simple question: given a corrupted sample, what direction points toward higher data density? Training a neural network to answer that question at every noise level is enough to build a generative model. You corrupt real images with Gaussian noise, teach the network to predict the noise that was added, and repeat for thousands of noise magnitudes indexed by a timestep t.
+DDPM defines a fixed forward process that gradually destroys a clean image by adding a small amount of Gaussian noise at each of T=1000 timesteps. The closed-form for this process lets you jump directly from a clean image x_0 to any noisy version x_t in one shot: x_t = sqrt(alpha_bar_t) * x_0 + sqrt(1 - alpha_bar_t) * eps, where eps is standard Gaussian noise and alpha_bar_t is the cumulative product of the noise schedule.
 
-The DDPM training objective follows directly from denoising score matching. Both minimize the same expected squared error, just written with a different parameterization. Instead of predicting the score directly, the network predicts the noise epsilon that was added in the forward process. The two are related by a constant factor that depends on the noise schedule, so the model is learning the same thing either way.
+Training asks the network to invert this: given a noisy image x_t and the timestep t, predict the noise eps that was added. The loss is a plain MSE between the true noise and the prediction. At inference time the same prediction is used to compute the reverse step mean, and a small amount of fresh noise is added, recovering x_{t-1} from x_t. Repeating this 1000 times starting from pure Gaussian noise produces a new image.
 
-Sampling runs the process in reverse. Starting from pure Gaussian noise, the model iteratively removes a small amount of noise at each step, guided by its prediction of what noise is present. After 1000 steps the result is a new image that was never in the training set.
+The connection to score matching: predicting eps is equivalent to estimating the score (gradient of log p) of the noisy distribution, related by a constant 1/sqrt(1 - alpha_bar_t). DDPM's gains over earlier score-based methods come from the continuous 1000-step schedule and the principled reverse-step variance derived from the forward process.
 
 ## Setup
 
@@ -60,7 +60,7 @@ Hyperparameters used:
 python sample.py --checkpoint checkpoints/ckpt_epoch0500.pt
 ```
 
-This writes `samples.png` (a grid of 64 generated images), `comparison.png` (real CIFAR-10 vs generated side by side), and `denoising.gif` (the reverse process for a single sample). Pass `--gif_seed N` to get a different sample in the GIF.
+This writes three files to `samples_output/`: `epoch{N}_samples.png` (a grid of 64 generated images), `epoch{N}_comparison.png` (real CIFAR-10 vs generated side by side), and `epoch{N}_denoising.gif` (the reverse process for a single sample). Pass `--gif_seed N` to get a different sample in the GIF.
 
 ## Results
 
